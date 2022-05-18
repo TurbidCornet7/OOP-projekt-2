@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -41,12 +42,14 @@ public class Peaklass extends Application {
         borderPane1.setTop(hBox);
         borderPane2.setTop(hBox2);
 
-        TextArea textArea = new TextArea("Sisesta tekst, mida soovid krüpteerida");
+        TextArea textArea = new TextArea("");
+        textArea.setPromptText("Sisesta tekst, mida krüpteerida");
         VBox tekst = new VBox(textArea);
         tekst.setAlignment(Pos.CENTER);
         borderPane1.setCenter(tekst);
 
-        TextField nihe = new TextField("Sisesta nihe, täisarvuna");
+        TextField nihe = new TextField("");
+        nihe.setPromptText("Sisesta nihe, täisarvuna");
 
         Button button = new Button("Krüpteeri");
 
@@ -66,8 +69,9 @@ public class Peaklass extends Application {
         tekstVäljund.setAlignment(Pos.CENTER);
         borderPane2.setCenter(tekstVäljund);
 
-        Button button2 = new Button("vali fail mida dekrüpteerida");
-        TextField nihe2 = new TextField("Sisesta nihe, täisarvuna");
+        Button button2 = new Button("Vali fail mida dekrüpteerida");
+        TextField nihe2 = new TextField("");
+        nihe2.setPromptText("Sisesta nihe, täisarvuna");
 
         VBox nupp2 = new VBox(nihe2, button2);
         nupp2.setSpacing(20);
@@ -93,12 +97,21 @@ public class Peaklass extends Application {
         });
 
         button.setOnAction(event -> {
-            Krüpteering krüpteering = new Krüpteering(textArea.getText());
-            File file = new File("krüpteeritud.txt");
-            try {
-                Files.writeString(file.toPath(), krüpteering.krypteeri(Integer.parseInt(nihe.getText())));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            try{
+                Krüpteering krüpteering = new Krüpteering(textArea.getText());
+                File file = new File("krüpteeritud.txt");
+                try {
+                    Files.writeString(file.toPath(), krüpteering.krypteeri(Integer.parseInt(nihe.getText())));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }catch(Erind e){
+                System.out.println("Tühi tektstiväli!");
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Tühi tekstiväli, proovige uuesti!");
+                alert.showAndWait();
+                //if (alert.getResult() == ButtonType.YES) {
+                //    alert.close();
+                //}
             }
         });
 
@@ -107,7 +120,7 @@ public class Peaklass extends Application {
 
         TabPane tabPane = new TabPane();
         Tab tab1 = new Tab("Krüpteeri", borderPane1);
-        Tab tab2 = new Tab("dekrüpteeri", borderPane2);
+        Tab tab2 = new Tab("Dekrüpteeri", borderPane2);
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
 
@@ -119,6 +132,8 @@ public class Peaklass extends Application {
         VBox vBox = new VBox(tabPane);
         Scene scene = new Scene(vBox, 500, 500);
         primaryStage.setScene(scene);
+        Image image = new Image("https://lh3.googleusercontent.com/8UVva4HhOxREWiIOtB2eGYFcGhXuwJU5VOqHD60BrCSPJCsQhG5VWqmZsO37hOmVx3OAok73Llt_ol4xPVxSbBxezuJJJHFqSPXH=w600");
+        primaryStage.getIcons().add(image);
 
 
         primaryStage.setTitle("Caseari krüpteering");

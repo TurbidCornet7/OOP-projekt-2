@@ -6,6 +6,8 @@ public class Krüpteering {
 
     public Krüpteering(String tekst) {
         this.tekst = tekst;
+        if(tekst.equals(""))
+            throw new Erind("Tekst puudub!");
     }
 
     public  String krypteeri(int nihe) {
