@@ -132,7 +132,7 @@ public class Peaklass extends Application {
         VBox vBox = new VBox(tabPane);
         Scene scene = new Scene(vBox, 500, 500);
         primaryStage.setScene(scene);
-        Image image = new Image("https://lh3.googleusercontent.com/8UVva4HhOxREWiIOtB2eGYFcGhXuwJU5VOqHD60BrCSPJCsQhG5VWqmZsO37hOmVx3OAok73Llt_ol4xPVxSbBxezuJJJHFqSPXH=w600");
+        Image image = new Image("caesar.png");
         primaryStage.getIcons().add(image);
 
 
