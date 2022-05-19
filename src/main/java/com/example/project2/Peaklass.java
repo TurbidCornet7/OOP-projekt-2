@@ -119,9 +119,6 @@ public class Peaklass extends Application {
                 System.out.println("Tühi tektstiväli!");
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Tühi tekstiväli, proovige uuesti!");
                 alert.showAndWait();
-                //if (alert.getResult() == ButtonType.YES) {
-                //    alert.close();
-                //}
             }
         });
 
