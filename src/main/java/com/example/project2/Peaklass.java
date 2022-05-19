@@ -27,7 +27,7 @@ public class Peaklass extends Application {
     public void start(Stage primaryStage) {
         BorderPane borderPane1 = new BorderPane();
         BorderPane borderPane2 = new BorderPane();
-
+        //loodud 2 tab-i üldisele aknale
         Label label1 = new Label("Krüpteeri tekst");
         HBox hBox = new HBox(label1);
         label1.setFont(new Font("Helvetica", 20));
@@ -38,21 +38,21 @@ public class Peaklass extends Application {
         label2.setFont(new Font("Helvetica", 20));
         hBox2.setAlignment(Pos.CENTER);
 
-
+        //mõlemad hBoxid lisatud borderpane ülesse, et oleks nn tab-id/vahelehed
         borderPane1.setTop(hBox);
         borderPane2.setTop(hBox2);
 
+        //lisatud üles textbox, kuhu kasutaja saab teksti lisada
         TextArea textArea = new TextArea("");
         textArea.setPromptText("Sisesta tekst, mida krüpteerida");
         VBox tekst = new VBox(textArea);
         tekst.setAlignment(Pos.CENTER);
         borderPane1.setCenter(tekst);
-
+        //tekstboxi alla lisatud uus textfield, kuhu kasutaja saab nihke sisestada
         TextField nihe = new TextField("");
         nihe.setPromptText("Sisesta nihe, täisarvuna");
-
         Button button = new Button("Krüpteeri");
-
+        //nupud krüpteerimiseks ja dekrüpteerimiseks
         VBox nupp = new VBox(nihe,button);
         nupp.setSpacing(20.0);
 
@@ -80,7 +80,12 @@ public class Peaklass extends Application {
         nupp2.setPadding(new Insets(50, 50, 50, 50));
 
         borderPane2.setBottom(nupp2);
-
+        //kui dekrüpteerida, käivitub event:
+        //avaneb failiavamisaken, kust saab faili valida
+        //loetakase krüpteeritud tekst uueks Krüpteering-u isendiks
+        //väljundi tekstiks sätestatakse krüteeringu isend, millele rakendatud dekrüpteeringu meetod,
+        //ehk väljundiks kasutajale kuvatavaks tekstiks saab dekrüpteeritud tekst.
+        //dekrüpteeritakse vastavalt kasutaja antud nihkele, ehk kui nihe on vale, on ka väljund vale
         button2.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();
             File file = fileChooser.showOpenDialog(primaryStage);
@@ -96,6 +101,11 @@ public class Peaklass extends Application {
 
         });
 
+        //kui vajutada krüpteeri nuppu, proovitakse luua sisestatud tekstiga isend krüpteering
+        //kui sõne on tühi ehk isend viskab erindi, püütakse see kinni ning kasutajale ilmub ette
+        //error box (alert isend), kus öeldakse, et tühi tekstiväli ning et proovige uuesti.
+        //kui tekst on olemas, siis luuakse uus fail krüpteeritud.txt ning kirjutatakse krüpteeritud tekst vastava nihkega
+        //loodud faili
         button.setOnAction(event -> {
             try{
                 Krüpteering krüpteering = new Krüpteering(textArea.getText());
